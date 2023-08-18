@@ -1,0 +1,33 @@
+2023-08-18T17:11:58.166480+0300 WARNING PostStatAggregator.__init__() missing 1 required positional argument: 'options' handlers.youtube
+2023-08-18T17:11:58.166480+0300 WARNING PostStatAggregator.__init__() missing 1 required positional argument: 'options' handlers.youtube
+2023-08-18T17:11:58.166480+0300 WARNING PostStatAggregator.__init__() missing 1 required positional argument: 'options' handlers.youtube
+2023-08-18T17:13:10.824284+0300 WARNING object of type 'YouTubeAggregator' has no len() handlers.youtube
+2023-08-18T17:13:10.824284+0300 WARNING object of type 'YouTubeAggregator' has no len() handlers.youtube
+2023-08-18T17:13:10.824284+0300 WARNING object of type 'YouTubeAggregator' has no len() handlers.youtube
+2023-08-18T17:14:27.285640+0300 WARNING object of type 'YouTubeAggregator' has no len() handlers.youtube
+2023-08-18T17:14:27.285640+0300 WARNING object of type 'YouTubeAggregator' has no len() handlers.youtube
+2023-08-18T17:14:27.285640+0300 WARNING object of type 'YouTubeAggregator' has no len() handlers.youtube
+2023-08-18T17:16:00.339595+0300 WARNING object of type 'YouTubeAggregator' has no len() handlers.youtube
+2023-08-18T17:16:00.339595+0300 WARNING object of type 'YouTubeAggregator' has no len() handlers.youtube
+2023-08-18T17:16:00.339595+0300 WARNING object of type 'YouTubeAggregator' has no len() handlers.youtube
+2023-08-18T17:18:47.550278+0300 WARNING object of type 'YouTubeAggregator' has no len() handlers.youtube
+2023-08-18T17:18:47.550278+0300 WARNING object of type 'YouTubeAggregator' has no len() handlers.youtube
+2023-08-18T17:18:47.550278+0300 WARNING object of type 'YouTubeAggregator' has no len() handlers.youtube
+2023-08-18T17:24:18.192953+0300 WARNING 'YouTubeAggregator' object is not iterable handlers.youtube
+2023-08-18T17:24:18.192953+0300 WARNING 'YouTubeAggregator' object is not iterable handlers.youtube
+2023-08-18T17:24:18.192953+0300 WARNING 'YouTubeAggregator' object is not iterable handlers.youtube
+2023-08-18T17:28:16.817981+0300 DEBUG 'list' object has no attribute 'replace'  scrapers_modules.youtube_core
+2023-08-18T17:28:16.817981+0300 DEBUG 'list' object has no attribute 'replace'  scrapers_modules.youtube_core
+2023-08-18T17:28:16.817981+0300 DEBUG 'list' object has no attribute 'replace'  scrapers_modules.youtube_core
+2023-08-18T17:28:16.817981+0300 WARNING cannot access local variable 'data' where it is not associated with a value handlers.youtube
+2023-08-18T17:28:16.817981+0300 WARNING cannot access local variable 'data' where it is not associated with a value handlers.youtube
+2023-08-18T17:28:16.817981+0300 WARNING cannot access local variable 'data' where it is not associated with a value handlers.youtube
+2023-08-18T17:32:16.027942+0300 WARNING 'list' object has no attribute 'replace' handlers.youtube
+2023-08-18T17:32:16.027942+0300 WARNING 'list' object has no attribute 'replace' handlers.youtube
+2023-08-18T17:32:16.027942+0300 WARNING 'list' object has no attribute 'replace' handlers.youtube
+2023-08-18T17:34:44.187571+0300 WARNING name 'p' is not defined handlers.youtube
+2023-08-18T17:34:44.187571+0300 WARNING name 'p' is not defined handlers.youtube
+2023-08-18T17:34:44.187571+0300 WARNING name 'p' is not defined handlers.youtube
+2023-08-18T17:35:42.184921+0300 WARNING cannot access local variable 'data' where it is not associated with a value handlers.youtube
+2023-08-18T17:35:42.184921+0300 WARNING cannot access local variable 'data' where it is not associated with a value handlers.youtube
+2023-08-18T17:35:42.184921+0300 WARNING cannot access local variable 'data' where it is not associated with a value handlers.youtube

@@ -11,7 +11,7 @@ from pandas import ExcelWriter
 
 from create_bot import dp, bot
 from keyboards import client_k
-from singlepostscraper import PostStatAggregator
+from foxypost import PostStatAggregator
 import pandas as pd
 from aiogram.types import InputFile
 
@@ -53,12 +53,12 @@ async def get_password(message:types.Message, state:FSMContext):
     async with state.proxy() as st:
         st["password"] = message.text
         options = {"instagram": {"usеrname": f"{st['login']}", "password": f"{st['password']}"}}
-        fun = PostStatAggregator(social_network="instagram",collection_link=st['link'], options=options)
+        aggregator = PostStatAggregator(social_network="instagram",collection_link=st['link'], options=options)
     await state.finish()
     await bot.send_message(message.chat.id,"Данные собираются📂 Пожалуйста, подождите..", reply_markup=client_k.coll_service)
     with concurrent.futures.ThreadPoolExecutor() as pool:
         data = await loop.run_in_executor(
-            pool, fun.get_data)
+            pool, aggregator.get_data)
     if len(data)<20:
         text = str(data).replace("}", "").replace("{", "").replace("[", "").replace("]", "").replace("'play_count","\n'play_count'")
         await bot.send_message(message.from_user.id,text=text, reply_markup=client_k.coll_service)
@@ -73,22 +73,8 @@ async def get_password(message:types.Message, state:FSMContext):
         print(f)
 
 
-
-
-
-
-
-async def FSMstop(message:types.Message, state:FSMContext):
-    cur_state = await state.get_state()
-    if cur_state is None:
-        return
-    await state.finish()
-    await message.reply("ОК", reply_markup=client_k.coll_service)
-
-
 def register_handlers_instagram(dp:Dispatcher):
     dp.register_callback_query_handler(get_inst, Text(startswith="soc_instagram"), state=None)
-    dp.register_message_handler(FSMstop, Text(equals="Отмена", ignore_case=True), state="*")
     dp.register_message_handler(get_link, state=FSMvib.soc_net)
     dp.register_message_handler(get_login, state=FSMvib.link)
     dp.register_message_handler(get_password, state=FSMvib.login)

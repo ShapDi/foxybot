@@ -5,7 +5,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 storage=MemoryStorage()
 
-TOK="6665421623:AAGCMaQDWOxGyCmrc8hseNqaR-PtBW3c56s"
+TOK="5690500950:AAG9UfkPxd9tGF1RaYjwP27npv0ri5jYt4k"
 bot = Bot(token=TOK)
 dp=Dispatcher(bot, storage=storage)
 
