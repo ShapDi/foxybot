@@ -59,6 +59,8 @@ async def get_password(message:types.Message, state:FSMContext):
     with concurrent.futures.ThreadPoolExecutor() as pool:
         data = await loop.run_in_executor(
             pool, aggregator.get_data)
+    print(data)
+    print(types(data))
     if len(data)<20:
         text = str(data).replace("}", "").replace("{", "").replace("[", "").replace("]", "").replace("'play_count","\n'play_count'")
         await bot.send_message(message.from_user.id,text=text, reply_markup=client_k.coll_service)

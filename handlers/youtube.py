@@ -37,17 +37,20 @@ async def get_link_youtube(message: types.message, state:FSMContext) -> str:
         loop = asyncio.get_running_loop()
 
         async with state.proxy() as link:
-            link["link"] = message.text
-            aggregator = PostStatAggregator(social_network="youtube", collection_link=[link["link"]],options = [])
-
+            link["link"] = message.text.split("\n")
+            await bot.send_message(message.chat.id, f"{link['link']}")
+            aggregator = PostStatAggregator(social_network="youtube", collection_link=link["link"],options = [])
         await state.finish()
         await bot.send_message(message.chat.id, "Данные собираются📂 Пожалуйста, подождите..",
                                reply_markup=client_k.coll_service)
         with concurrent.futures.ThreadPoolExecutor() as pool:
             data = await loop.run_in_executor(
                 pool, aggregator.get_data)
+            text = ""
+        for i in data:
+            text = text + f"{str(list(i.keys()))}:\n{str(list(i.values()))}\n".replace("]","").replace("[","").replace("}","").replace("{","").replace("'","")
 
-        await bot.send_message(message.chat.id, data,
+        await bot.send_message(message.chat.id, text,
                                    reply_markup=client_k.coll_service)
     except Exception as f:
         logger.warning(f)
