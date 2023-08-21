@@ -31,6 +31,9 @@ class InstagramAggregator():
     def make_drive(self):
         options = webdriver.ChromeOptions()
         options.headless = True
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
         options.add_argument("--disable-blink-features=AutomationControlled")
         driver = webdriver.Chrome(options=options)
         driver.response_interceptor = self.my_response_interceptor
