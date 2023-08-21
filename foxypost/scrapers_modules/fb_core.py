@@ -1,5 +1,4 @@
 from facebook_scraper import get_posts
-
 class FacebookAggregator():
     def __init__(self, collection_links:list):
         self._collection_links = collection_links

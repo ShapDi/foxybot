@@ -1,4 +1,5 @@
-from loguru import logger
+import os
+import time
 
 import asyncio
 from aiogram import types, Dispatcher
@@ -7,18 +8,16 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher.filters import Text
 import concurrent.futures
-from aiogram.utils import executor
-from pandas import ExcelWriter
+from loguru import logger
 
 from create_bot import dp, bot
 from keyboards import client_k
 from foxypost import PostStatAggregator
 import pandas as pd
-from aiogram.types import InputFile
 
-logger.add("logs.log", format="{time} {level} {message} {name}", level="DEBUG")
+logger.add("logs.log", format="{time} {level} {message} {name}", level="ERROR")
 
-class FSMvib(StatesGroup):
+class FSMyoutube(StatesGroup):
     soc_net = State()
     link = State()
 
@@ -28,8 +27,8 @@ async def get_youtube(callback:types.CallbackQuery,state:FSMContext):
     kap = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
     cnopka_start = types.KeyboardButton("Отмена")
     kap.add(cnopka_start)
-    await FSMvib.next()
-    await bot.send_message(callback.message.chat.id,"""Отправь ссылки на shorts в формате https://www.youtube.com/shorts/nDlAoNEbNdI""",
+    await  FSMyoutube.next()
+    await bot.send_message(callback.message.chat.id,"""Отправь ссылки на shorts""",
                                   reply_markup=kap)
 
 async def get_link_youtube(message: types.message, state:FSMContext) -> str:
@@ -46,15 +45,27 @@ async def get_link_youtube(message: types.message, state:FSMContext) -> str:
         with concurrent.futures.ThreadPoolExecutor() as pool:
             data = await loop.run_in_executor(
                 pool, aggregator.get_data)
-            text = ""
-        for i in data:
-            text = text + f"{str(list(i.keys()))}:\n{str(list(i.values()))}\n".replace("]","").replace("[","").replace("}","").replace("{","").replace("'","")
+        name_table = f"data_{str(time.time()).split('.')[0]}"
 
-        await bot.send_message(message.chat.id, text,
-                                   reply_markup=client_k.coll_service)
+        df = pd.DataFrame({"link": [(list(x.keys())[0]) for x in data],
+                               "play_count": [
+                                   (str(list(x.values())[0])).split(" ")[1].replace("viewCount:", "").replace("'","").replace(",", "") for x in data],
+                               "commentCount": [
+                                   (str(list(x.values())[0])).split(" ")[3].replace("commentCount:", "").replace("'","").replace(",", "") for x in data],
+                               "likeCount": [
+                                   ((str(list(x.values())[0])).split(" "))[5].replace("likeCount:", "").replace("'","").replace(",", "") for x in
+                                   data],
+                               "data": [((str(list(x.values())[0])).split(" "))[7].replace("data:", "").replace("'",
+                                                                                                                "").replace(
+                                   "}", "") for x in
+                                        data]})
+        df.to_excel(f'{name_table}.xlsx')
+
+        await bot.send_document(message.chat.id, document=open(f'{name_table}.xlsx', "rb"))
+        os.remove(f'{name_table}.xlsx')
     except Exception as f:
-        logger.warning(f)
+        logger.error(f)
 
 def register_handlers_youtube(dp:Dispatcher):
     dp.register_callback_query_handler(get_youtube, Text(startswith="soc_youtube"), state=None)
-    dp.register_message_handler(get_link_youtube, state=FSMvib.soc_net)
+    dp.register_message_handler(get_link_youtube, state= FSMyoutube.soc_net)
