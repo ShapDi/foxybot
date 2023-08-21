@@ -37,7 +37,6 @@ async def get_link_youtube(message: types.message, state:FSMContext) -> str:
 
         async with state.proxy() as link:
             link["link"] = message.text.split("\n")
-            await bot.send_message(message.chat.id, f"{link['link']}")
             aggregator = PostStatAggregator(social_network="youtube", collection_link=link["link"],options = [])
         await state.finish()
         await bot.send_message(message.chat.id, "Данные собираются📂 Пожалуйста, подождите..",
