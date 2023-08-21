@@ -65,6 +65,7 @@ async def get_password(message: types.Message, state: FSMContext):
     with concurrent.futures.ThreadPoolExecutor() as pool:
         data = await loop.run_in_executor(
             pool, aggregator.get_data)
+    logger.error(data)
     name_table = f"data_{str(time.time()).split('.')[0]}"
     try:
         df = pd.DataFrame({"link": [(list(x.keys())[0]) for x in data],
