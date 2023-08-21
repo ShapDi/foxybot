@@ -17,8 +17,8 @@ class InstagramAggregator():
         self._username = username
         self._password = password
         self._link_coll = link_coll
-        self._drive
-        self._data
+        self._drive = []
+        self._data = []
 
     def my_response_interceptor(self,request, response):
         if "https://www.instagram.com/api/v1/feed/collection" in request.url and "/posts/" in request.url:
@@ -31,13 +31,15 @@ class InstagramAggregator():
     def make_drive(self):
         options = webdriver.ChromeOptions()
         options.headless = True
+        options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_argument('--disable-gpu')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-setuid-sandbox')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument("--start-maximized")
         options.add_argument("--window-size=1920,1080")
-        driver = webdriver.Chrome(options=options)
+
+        driver = webdriver.Chrome(options = options)
         driver.response_interceptor = self.my_response_interceptor
         return driver
 
