@@ -5,7 +5,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from dotenv import load_dotenv
 
 load_dotenv()
-token = os.getenv('TOKEN')
+token = os.environ('TOKEN')
 
 storage=MemoryStorage()
 
